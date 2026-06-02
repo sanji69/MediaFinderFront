@@ -2,24 +2,33 @@
 import { onMounted, ref } from 'vue'
 import MediaCard from '../components/media/MediaCard.vue'
 import { getTrendingMovies, type TrendingMovie } from '../services/movieService'
+import { getTrendingSeries, type TrendingSeries } from '../services/seriesService'
+
 
 const movies = ref<TrendingMovie[]>([])
-const isLoading = ref(true)
-const error = ref<string | null>(null)
+const series = ref<TrendingSeries[]>([])
+const isSeriesLoading = ref(true)
+const movieIsLoading = ref(true)
+const movieError = ref<string | null>(null)
 const movieRowRef = ref<HTMLElement | null>(null)
+const seriesError = ref<string | null>(null)
+const seriesRowRef = ref<HTMLElement | null>(null)
 
 let scrollInterval: number | null = null
 
-function startScroll(direction: 'left' | 'right') {
-    stopScroll()
+function startScroll(
+  element: HTMLElement | null,
+  direction: 'left' | 'right',
+) {
+  stopScroll()
 
-    scrollInterval = window.setInterval(() => {
-      movieRowRef.value?.scrollBy({
-        left: direction === 'right' ? 12 : -12,
-        behavior: 'smooth',
-      })
-    }, 16)
-  }
+  scrollInterval = window.setInterval(() => {
+    element?.scrollBy({
+      left: direction === 'right' ? 12 : -12,
+      behavior: 'smooth',
+    })
+  }, 16)
+}
 
 function stopScroll() {
   if (scrollInterval !== null) {
@@ -30,13 +39,22 @@ function stopScroll() {
 
 onMounted(async () => {
   try {
-    isLoading.value = true
+    movieIsLoading.value = true
     movies.value = await getTrendingMovies('fr-FR')
   } catch (err) {
     console.error(err)
-    error.value = 'Failed to load trending movies.'
+    movieError.value = 'Failed to load trending movies.'
   } finally {
-    isLoading.value = false
+    movieIsLoading.value = false
+  }
+  try {
+    isSeriesLoading.value = true
+    series.value = await getTrendingSeries('fr-FR')
+  } catch (err) {
+    console.error(err)
+    seriesError.value = 'Failed to load trending series.'
+  } finally {
+    isSeriesLoading.value = false
   }
 })
 </script>
@@ -47,12 +65,12 @@ onMounted(async () => {
     <section class="media-section">
       <h2>Trending Movies</h2>
 
-      <p v-if="isLoading">Loading...</p>
-      <p v-else-if="error">{{ error }}</p>
+      <p v-if="movieIsLoading">Loading...</p>
+      <p v-else-if="movieError">{{ movieError }}</p>
 
       <div v-else class="carousel-wrapper">
         <button class="carousel-arrow carousel-arrow-left"
-          @mouseenter="startScroll('left')"
+          @mouseenter="startScroll(movieRowRef, 'left')"
           @mouseleave="stopScroll"
           aria-label="Scroll left">
          ‹
@@ -68,7 +86,38 @@ onMounted(async () => {
         />
       </div>
         <button class="carousel-arrow carousel-arrow-right"
-          @mouseenter="startScroll('right')"
+          @mouseenter="startScroll(movieRowRef, 'right')"
+          @mouseleave="stopScroll"
+          aria-label="Scroll right">
+         ›
+        </button>
+      </div>
+    </section>
+    <section class="media-section">
+      <h2>Trending Series</h2>
+
+      <p v-if="isSeriesLoading">Loading...</p>
+      <p v-else-if="seriesError">{{ seriesError }}</p>
+
+      <div v-else class="carousel-wrapper">
+        <button class="carousel-arrow carousel-arrow-left"
+          @mouseenter="startScroll(seriesRowRef, 'left')"
+          @mouseleave="stopScroll"
+          aria-label="Scroll left">
+         ‹
+        </button>
+        <div class="media-row" ref="seriesRowRef">
+        <MediaCard
+          v-for="serie in series"
+          :key="serie.id"
+          :title="serie.name"
+          :poster_path="serie.posterPath"
+          :release_date="serie.firstAirDate || ''"
+          :vote_average="serie.voteAverage"
+        />
+      </div>
+        <button class="carousel-arrow carousel-arrow-right"
+          @mouseenter="startScroll(seriesRowRef, 'right')"
           @mouseleave="stopScroll"
           aria-label="Scroll right">
          ›
