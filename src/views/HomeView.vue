@@ -4,7 +4,6 @@ import MediaCard from '../components/media/MediaCard.vue'
 import { getTrendingMovies, type TrendingMovie } from '../services/movieService'
 import { getTrendingSeries, type TrendingSeries } from '../services/seriesService'
 
-
 const movies = ref<TrendingMovie[]>([])
 const series = ref<TrendingSeries[]>([])
 const isSeriesLoading = ref(true)
@@ -16,10 +15,7 @@ const seriesRowRef = ref<HTMLElement | null>(null)
 
 let scrollInterval: number | null = null
 
-function startScroll(
-  element: HTMLElement | null,
-  direction: 'left' | 'right',
-) {
+function startScroll(element: HTMLElement | null, direction: 'left' | 'right') {
   stopScroll()
 
   scrollInterval = window.setInterval(() => {
@@ -61,7 +57,6 @@ onMounted(async () => {
 
 <template>
   <main>
-    <h1>Media Finder</h1>
     <section class="media-section">
       <h2>Trending Movies</h2>
 
@@ -69,27 +64,32 @@ onMounted(async () => {
       <p v-else-if="movieError">{{ movieError }}</p>
 
       <div v-else class="carousel-wrapper">
-        <button class="carousel-arrow carousel-arrow-left"
+        <button
+          class="carousel-arrow carousel-arrow-left"
           @mouseenter="startScroll(movieRowRef, 'left')"
           @mouseleave="stopScroll"
-          aria-label="Scroll left">
-         ‹
+          aria-label="Scroll left"
+        >
+          ‹
         </button>
         <div class="media-row" ref="movieRowRef">
-        <MediaCard
-          v-for="movie in movies"
-          :key="movie.id"
-          :title="movie.title"
-          :poster_path="movie.posterPath"
-          :release_date="movie.releaseDate || ''"
-          :vote_average="movie.voteAverage"
-        />
-      </div>
-        <button class="carousel-arrow carousel-arrow-right"
+          <MediaCard
+            v-for="movie in movies"
+            :key="movie.id"
+            :title="movie.title"
+            :posterPath="movie.posterPath"
+            :releaseDate="movie.releaseDate || ''"
+            :voteAverage="movie.voteAverage"
+            :detailUrl="`/movies/${movie.id}`"
+          />
+        </div>
+        <button
+          class="carousel-arrow carousel-arrow-right"
           @mouseenter="startScroll(movieRowRef, 'right')"
           @mouseleave="stopScroll"
-          aria-label="Scroll right">
-         ›
+          aria-label="Scroll right"
+        >
+          ›
         </button>
       </div>
     </section>
@@ -100,27 +100,32 @@ onMounted(async () => {
       <p v-else-if="seriesError">{{ seriesError }}</p>
 
       <div v-else class="carousel-wrapper">
-        <button class="carousel-arrow carousel-arrow-left"
+        <button
+          class="carousel-arrow carousel-arrow-left"
           @mouseenter="startScroll(seriesRowRef, 'left')"
           @mouseleave="stopScroll"
-          aria-label="Scroll left">
-         ‹
+          aria-label="Scroll left"
+        >
+          ‹
         </button>
         <div class="media-row" ref="seriesRowRef">
-        <MediaCard
-          v-for="serie in series"
-          :key="serie.id"
-          :title="serie.name"
-          :poster_path="serie.posterPath"
-          :release_date="serie.firstAirDate || ''"
-          :vote_average="serie.voteAverage"
-        />
-      </div>
-        <button class="carousel-arrow carousel-arrow-right"
+          <MediaCard
+            v-for="serie in series"
+            :key="serie.id"
+            :title="serie.name"
+            :posterPath="serie.posterPath"
+            :releaseDate="serie.firstAirDate || ''"
+            :voteAverage="serie.voteAverage"
+            :detailUrl="`/series/${serie.id}`"
+          />
+        </div>
+        <button
+          class="carousel-arrow carousel-arrow-right"
           @mouseenter="startScroll(seriesRowRef, 'right')"
           @mouseleave="stopScroll"
-          aria-label="Scroll right">
-         ›
+          aria-label="Scroll right"
+        >
+          ›
         </button>
       </div>
     </section>
@@ -158,7 +163,9 @@ onMounted(async () => {
   font-size: 3rem;
   cursor: pointer;
   opacity: 0;
-  transition: opacity 0.2s ease, background 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    background 0.2s ease;
 }
 
 .carousel-wrapper:hover .carousel-arrow {
@@ -175,5 +182,17 @@ onMounted(async () => {
 
 .carousel-arrow-right {
   right: 0;
+}
+
+.media-section h2 {
+  margin-bottom: 0 0 1rem;
+  padding-left: 0.75rem;
+
+  font-size: 1.8rem;
+  font-weight: 700;
+
+  color: #ffffff;
+
+  border-left: 4px solid #3b82f6;
 }
 </style>

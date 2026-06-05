@@ -2,66 +2,68 @@
 import { computed } from 'vue'
 
 const props = defineProps<{
-    title: string
-    poster_path: string | null
-    release_date: string
-    vote_average: number
+  title: string
+  posterPath: string | null
+  releaseDate: string | null
+  voteAverage: number
+  detailUrl: string
 }>()
 
 const posterUrl = computed(() => {
-  if (!props.poster_path) {
+  if (!props.posterPath) {
     return null
   }
 
-  return `https://image.tmdb.org/t/p/w500${props.poster_path}`
+  return `https://image.tmdb.org/t/p/w500${props.posterPath}`
 })
 
 const formattedDate = computed(() => {
-  if (!props.release_date) {
+  if (!props.releaseDate) {
     return 'Unknown'
   }
 
-  return new Intl.DateTimeFormat("fr-FR", { year: 'numeric', month: 'long', day: 'numeric' })
-  .format(new Date(props.release_date))
+  return new Intl.DateTimeFormat('fr-FR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(new Date(props.releaseDate))
 })
 
 const ratingOnFive = computed(() => {
-  return Math.floor((props.vote_average / 2)*10)/10
+  return Math.floor((props.voteAverage / 2) * 10) / 10
 })
 
 const ratingPercent = computed(() => {
   return `${(ratingOnFive.value / 5) * 100}%`
 })
-
 </script>
 
-
 <template>
-  <article class="media-card">
-    <div class="poster-wrapper">
-      <img v-if="posterUrl" :src="posterUrl" :alt="title" class="poster" />
+  <RouterLink :to="detailUrl" class="media-card-link">
+    <article class="media-card">
+      <div class="poster-wrapper">
+        <img v-if="posterUrl" :src="posterUrl" :alt="title" class="poster" />
 
-      <div v-else class="poster-placeholder">
-        No image
+        <div v-else class="poster-placeholder">No image</div>
       </div>
-    </div>
 
-    <div class="media-info">
-      <h3>{{ title }}</h3>
+      <div class="media-info">
+        <h3>{{ title }}</h3>
 
-      <p class="release-date">
-        {{ formattedDate }}
-      </p>
+        <p class="release-date">
+          {{ formattedDate }}
+        </p>
 
-      <div class="rating" :aria-label="`Rating ${ratingOnFive} out of 5`">
-        <div class="stars">
-          <div class="stars-empty">★★★★★</div>
-          <div class="stars-filled" :style="{ width: ratingPercent }">★★★★★</div>
+        <div class="rating" :aria-label="`Rating ${ratingOnFive} out of 5`">
+          <div class="stars">
+            <div class="stars-empty">★★★★★</div>
+            <div class="stars-filled" :style="{ width: ratingPercent }">★★★★★</div>
+          </div>
+          <span class="rating-value">{{ ratingOnFive }}/5</span>
         </div>
-        <span class="rating-value">{{ ratingOnFive }}/5</span>
       </div>
-    </div>
-  </article>
+    </article>
+  </RouterLink>
 </template>
 
 <style scoped>
@@ -69,6 +71,11 @@ const ratingPercent = computed(() => {
   width: 180px;
   flex: 0 0 180px;
   text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.media-card:hover {
+  transform: scale(1.05);
 }
 
 .poster-wrapper {
@@ -143,5 +150,11 @@ const ratingPercent = computed(() => {
 .rating-value {
   color: #ddd;
   font-size: 0.8rem;
+}
+
+.media-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 </style>
