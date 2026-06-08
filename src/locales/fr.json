@@ -1,0 +1,33 @@
+{
+  "header": {
+    "searchPlaceholder": "Rechercher un film ou une série...",
+    "login": "Connexion"
+  },
+
+  "footer": {
+    "copyright": "© Sanji - MediaFinder",
+    "tmdb": "Les données films et séries sont fournies par TMDb."
+  },
+
+  "home": {
+    "trendingMovies": "Films tendance",
+    "trendingSeries": "Séries tendance",
+    "loading": "Chargement..."
+  },
+
+  "movie": {
+    "overview": "Synopsis",
+    "availableOn": "Disponible sur",
+    "mainCast": "Casting principal",
+    "directedBy": "Réalisé par"
+  },
+
+  "series": {
+    "overview": "Synopsis",
+    "availableOn": "Disponible sur",
+    "mainCast": "Casting principal",
+    "createdBy": "Créé par",
+    "seasons": "saisons",
+    "episodes": "épisodes"
+  }
+}

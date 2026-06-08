@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import MediaCard from '../components/media/MediaCard.vue'
 import { getTrendingMovies, type TrendingMovie } from '../services/movieService'
 import { getTrendingSeries, type TrendingSeries } from '../services/seriesService'
+import { useI18n } from 'vue-i18n'
+
+const { t, locale } = useI18n()
 
 const movies = ref<TrendingMovie[]>([])
 const series = ref<TrendingSeries[]>([])
@@ -14,6 +17,20 @@ const seriesError = ref<string | null>(null)
 const seriesRowRef = ref<HTMLElement | null>(null)
 
 let scrollInterval: number | null = null
+
+const apiLocale = computed(() => {
+  if (locale.value === 'en') {
+    return {
+      language: 'en-US',
+      countryCode: 'US',
+    }
+  }
+
+  return {
+    language: 'fr-FR',
+    countryCode: 'FR',
+  }
+})
 
 function startScroll(element: HTMLElement | null, direction: 'left' | 'right') {
   stopScroll()
@@ -36,7 +53,7 @@ function stopScroll() {
 onMounted(async () => {
   try {
     movieIsLoading.value = true
-    movies.value = await getTrendingMovies('fr-FR')
+    movies.value = await getTrendingMovies(apiLocale.value)
   } catch (err) {
     console.error(err)
     movieError.value = 'Failed to load trending movies.'
@@ -45,7 +62,7 @@ onMounted(async () => {
   }
   try {
     isSeriesLoading.value = true
-    series.value = await getTrendingSeries('fr-FR')
+    series.value = await getTrendingSeries(apiLocale.value)
   } catch (err) {
     console.error(err)
     seriesError.value = 'Failed to load trending series.'
@@ -58,7 +75,7 @@ onMounted(async () => {
 <template>
   <main>
     <section class="media-section">
-      <h2>Trending Movies</h2>
+      <h2>{{ t('home.trendingMovies') }}</h2>
 
       <p v-if="movieIsLoading">Loading...</p>
       <p v-else-if="movieError">{{ movieError }}</p>
@@ -94,7 +111,7 @@ onMounted(async () => {
       </div>
     </section>
     <section class="media-section">
-      <h2>Trending Series</h2>
+      <h2>{{ t('home.trendingSeries') }}</h2>
 
       <p v-if="isSeriesLoading">Loading...</p>
       <p v-else-if="seriesError">{{ seriesError }}</p>

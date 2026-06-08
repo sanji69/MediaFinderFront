@@ -1,8 +1,14 @@
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+</script>
+
 <template>
   <footer class="app-footer">
     <div class="footer-content">
-      <p>© 2026 Axel AUBRY - MediaFinder</p>
-      <p class="footer-note">Movie and TV data provided by TMDb.</p>
+      <p>{{ t('footer.copyright') }}</p>
+      <p class="footer-note">{{ t('footer.tmdb') }}</p>
     </div>
   </footer>
 </template>

@@ -1,20 +1,54 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { getMovieById, type MovieDetail } from '../services/movieService'
+import PersonLink from '../components/people/PersonLink.vue'
+import CastCard from '../components/people/CastCard.vue'
+import WatchProviderCard from '../components/media/WatchProviderCard.vue'
 
 const route = useRoute()
+const { t, locale } = useI18n()
 
 const movie = ref<MovieDetail | null>(null)
 const isLoading = ref(true)
 const error = ref<string | null>(null)
+
+const apiLocale = computed(() => {
+  if (locale.value === 'en') {
+    return {
+      language: 'en-US',
+      countryCode: 'US',
+    }
+  }
+
+  return {
+    language: 'fr-FR',
+    countryCode: 'FR',
+  }
+})
+
+async function loadMovie() {
+  try {
+    isLoading.value = true
+    error.value = null
+
+    const id = Number(route.params.id)
+    movie.value = await getMovieById(id, apiLocale.value)
+  } catch (err) {
+    console.error(err)
+    error.value = t('movie.loadError')
+  } finally {
+    isLoading.value = false
+  }
+}
 
 const posterUrl = computed(() =>
   movie.value?.posterPath ? `https://image.tmdb.org/t/p/w500${movie.value.posterPath}` : null,
 )
 
 const releaseYear = computed(() =>
-  movie.value?.releaseDate ? movie.value.releaseDate.split('-')[0] : 'Unknown',
+  movie.value?.releaseDate ? movie.value.releaseDate.split('-')[0] : t('common.unknown'),
 )
 
 const ratingOnFive = computed(() => {
@@ -22,65 +56,183 @@ const ratingOnFive = computed(() => {
   return Math.floor((movie.value.voteAverage / 2) * 10) / 10
 })
 
-onMounted(async () => {
-  try {
-    const id = Number(route.params.id)
-    movie.value = await getMovieById(id, 'fr-FR')
-  } catch (err) {
-    console.error(err)
-    error.value = 'Failed to load movie details.'
-  } finally {
-    isLoading.value = false
-  }
-})
+onMounted(loadMovie)
+
+watch(locale, loadMovie)
 </script>
 
 <template>
   <main class="movie-detail-page">
-    <p v-if="isLoading">Loading...</p>
+    <p v-if="isLoading">{{ t('common.loading') }}</p>
     <p v-else-if="error">{{ error }}</p>
-    <section v-else class="movie-detail">
-      <div class="poster-wrapper">
-        <img v-if="posterUrl" :src="posterUrl" :alt="movie?.title" class="poster" />
-      </div>
 
-      <div class="movie-content">
-        <h1>{{ movie?.title }}</h1>
+    <section v-else-if="movie" class="movie-detail">
+    <h1 class="movie-title">{{ movie.title }}</h1>
 
-        <p class="meta">{{ releaseYear }} • {{ movie?.runtime }} min • {{ ratingOnFive }} / 5</p>
-
-        <div class="genres">
-          <span v-for="genre in movie?.genres" :key="genre" class="genre">
-            {{ genre }}
-          </span>
+      <div class="movie-layout">
+        <div class="poster-column">
+          <div class="poster-wrapper">
+            <img v-if="posterUrl" :src="posterUrl" :alt="movie.title" class="poster" />
+          </div>
         </div>
 
-        <h2>Overview</h2>
-        <p class="overview">{{ movie?.overview }}</p>
+        <div class="content-column">
+
+          <p class="meta">
+            {{ releaseYear }} • {{ movie.runtime }} min • {{ ratingOnFive }} / 5
+          </p>
+
+          <div class="genres">
+            <RouterLink
+              v-for="genre in movie.genres"
+              :key="genre.id"
+              :to="`/search?genreId=${genre.id}`"
+              class="genre"
+            >
+              {{ genre.name }}
+            </RouterLink>
+          </div>
+
+          <div v-if="movie.directors.length" class="info-block">
+            <h2>{{ t('movie.directedBy') }}</h2>
+
+            <div class="people-links">
+              <PersonLink
+                v-for="director in movie.directors"
+                :key="director.id"
+                :id="director.id"
+                :name="director.name"
+              />
+            </div>
+          </div>
+
+          <div v-if="movie.watchProviders.length" class="info-block">
+            <h2>{{ t('movie.availableOn') }}</h2>
+
+            <div class="providers-grid">
+              <WatchProviderCard
+                v-for="provider in movie.watchProviders"
+                :key="`${provider.type}-${provider.id}`"
+                :id="provider.id"
+                :name="provider.name"
+                :logo-path="provider.logoPath"
+                :type="provider.type"
+              />
+            </div>
+          </div>
+
+          <div class="info-block">
+            <h2>{{ t('movie.overview') }}</h2>
+            <p class="overview">{{ movie.overview }}</p>
+          </div>
+        </div>
+
+        <aside class="cast-column">
+          <div v-if="movie.cast.length" class="info-block">
+            <h2>{{ t('movie.mainCast') }}</h2>
+
+            <div class="cast-row">
+              <CastCard
+                v-for="actor in movie.cast"
+                :key="actor.id"
+                :id="actor.id"
+                :name="actor.name"
+                :character="actor.character"
+                :profile-path="actor.profilePath"
+              />
+            </div>
+          </div>
+        </aside>
       </div>
     </section>
   </main>
 </template>
 
 <style scoped>
-.movie-detail-page {
-  min-height: 80vh;
-  padding: 3rem 2rem;
-  background: #111827;
-  color: #f5f5f5;
+
+@media (max-width: 1200px) {
+  .movie-layout {
+    grid-template-columns: 240px minmax(0, 1fr);
+  }
+
+  .cast-column {
+    grid-column: 1 / -1;
+  }
+
+  .cast-row {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .movie-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .movie-title {
+    font-size: 2rem;
+  }
+
+  .poster-wrapper {
+    width: 100%;
+    max-width: 240px;
+    margin: 0 auto;
+  }
 }
 
 .movie-detail {
-  gap: 3rem;
-  max-width: 1100px;
+  max-width: 1500px;
   margin: 0 auto;
+}
+
+.movie-title {
+  margin: 0 0 2rem;
+  text-align: center;
+  font-size: 3rem;
+}
+
+.movie-layout {
   display: grid;
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: 260px minmax(0, 1fr) 420px;
+  gap: 2.5rem;
   align-items: start;
 }
 
+.genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.25rem 0;
+}
+
+.genre {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 0.45rem 0.9rem;
+  border-radius: 9999px;
+
+  background: #1f2937;
+  color: #bfdbfe;
+
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.genre:hover {
+  background: #2563eb;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
 .poster-wrapper {
-  width: 100%;
+  width: 260px;
   aspect-ratio: 2 / 3;
   border-radius: 16px;
   overflow: hidden;
@@ -90,54 +242,25 @@ onMounted(async () => {
 .poster {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
 }
 
-.movie-content h1 {
-  margin: 0;
-  font-size: 3rem;
+.content-column {
+  min-width: 0;
 }
 
-.meta {
-  margin: 0;
-  color: #cbd5e1;
+.cast-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
 }
 
-.genres {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin: 1.5rem 0;
+.providers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
 }
 
-.genre {
-  padding: 0.35rem 0.75rem;
-  border-radius: 9999px;
-  background: #1f2937;
-  font-size: 0.9rem;
-}
 
-movie-content h2 {
-  margin: 2rem;
-}
-
-.overview {
-  line-height: 1.7;
-  color: #d1d5db;
-  max-width: 760px;
-}
-
-@media (max-width: 768px) {
-  .movie-detail {
-    grid-template-columns: 1fr;
-  }
-
-  .poster-wrapper {
-    max-width: 260px;
-  }
-
-  .movie-content h1 {
-    font-size: 2rem;
-  }
-}
 </style>

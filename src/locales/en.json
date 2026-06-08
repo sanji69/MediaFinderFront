@@ -1,0 +1,33 @@
+{
+  "header": {
+    "searchPlaceholder": "Search movies or tv shows...",
+    "login": "Login"
+  },
+
+  "footer": {
+    "copyright": "© Sanji - MediaFinder",
+    "tmdb": "Movie and TV data provided by TMDb."
+  },
+
+  "home": {
+    "trendingMovies": "Trending Movies",
+    "trendingSeries": "Trending TV Shows",
+    "loading": "Loading..."
+  },
+
+  "movie": {
+    "overview": "Overview",
+    "availableOn": "Available on",
+    "mainCast": "Main Cast",
+    "directedBy": "Directed by"
+  },
+
+  "series": {
+    "overview": "Overview",
+    "availableOn": "Available on",
+    "mainCast": "Main Cast",
+    "createdBy": "Created by",
+    "seasons": "seasons",
+    "episodes": "episodes"
+  }
+}

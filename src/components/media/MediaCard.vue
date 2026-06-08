@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { locale } = useI18n()
 
 const props = defineProps<{
   title: string
@@ -22,7 +25,9 @@ const formattedDate = computed(() => {
     return 'Unknown'
   }
 
-  return new Intl.DateTimeFormat('fr-FR', {
+  const currentLocale = locale.value === 'en' ? 'en-US' : 'fr-FR'
+
+  return new Intl.DateTimeFormat(currentLocale, {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
