@@ -1,3 +1,5 @@
+import type { ApiLocale } from './apiLocale'
+
 export type TrendingMovie = {
   id: number
   title: string
@@ -50,11 +52,6 @@ export type WatchProvider = {
   name: string
   logoPath: string | null
   type: string
-}
-
-export type ApiLocale = {
-  language: string
-  countryCode: string
 }
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL

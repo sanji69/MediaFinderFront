@@ -1,10 +1,14 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 
 const { t, locale } = useI18n()
-
+const router = useRouter()
 const isLanguageMenuOpen = ref(false)
+
+const searchText = ref('')
+let searchTimeout: number | undefined
 
 type LangCode = 'fr' | 'en'
 type Language = { code: LangCode; flag: string }
@@ -22,13 +26,37 @@ function changeLanguage(languageCode: LangCode) {
   locale.value = languageCode
   isLanguageMenuOpen.value = false
 }
+
+watch(searchText, (value) => {
+  if (searchTimeout) {
+    clearTimeout(searchTimeout)
+  }
+
+  const query = value.trim()
+
+  if (query.length < 2) {
+    return
+  }
+
+  searchTimeout = window.setTimeout(() => {
+    router.push({
+      name: 'search-results',
+      query: {
+        type: 'multi',
+        query,
+        label: query,
+      },
+    })
+  }, 300)
+})
+
 </script>
 
 <template>
   <header class="app-header">
     <RouterLink to="/" class="site-name"> MediaFinder </RouterLink>
     <div class="search-wrapper">
-      <input type="text" :placeholder="t('header.searchPlaceholder')" class="search-input" />
+      <input type="text" v-model="searchText" :placeholder="t('header.searchPlaceholder')" class="search-input" />
     </div>
     <div class="header-actions">
       <button class="login-button" disabled>{{ t('header.login') }}</button>

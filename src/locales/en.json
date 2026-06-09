@@ -29,5 +29,14 @@
     "createdBy": "Created by",
     "seasons": "seasons",
     "episodes": "episodes"
+  },
+
+  "search": {
+  "title": "Search Results",
+  "resultsFor": "Results for {name}",
+  "loading": "Loading...",
+  "noResults": "No results found.",
+  "loadError": "Unable to load results.",
+  "noPoster": "No poster available"
   }
 }

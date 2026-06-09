@@ -59,6 +59,7 @@ const ratingOnFive = computed(() => {
 onMounted(loadMovie)
 
 watch(locale, loadMovie)
+
 </script>
 
 <template>
@@ -83,14 +84,22 @@ watch(locale, loadMovie)
           </p>
 
           <div class="genres">
-            <RouterLink
-              v-for="genre in movie.genres"
-              :key="genre.id"
-              :to="`/search?genreId=${genre.id}`"
-              class="genre"
-            >
-              {{ genre.name }}
-            </RouterLink>
+          <RouterLink
+            v-for="genre in movie.genres"
+            :key="genre.id"
+            :to="{
+              name: 'search-results',
+              query: {
+                type: 'genre',
+                genreId: genre.id,
+                sourceMediaType: 'movie',
+                label: genre.name
+              }
+            }"
+            class="genre"
+          >
+            {{ genre.name }}
+          </RouterLink>
           </div>
 
           <div v-if="movie.directors.length" class="info-block">
@@ -102,6 +111,7 @@ watch(locale, loadMovie)
                 :key="director.id"
                 :id="director.id"
                 :name="director.name"
+                role="director"
               />
             </div>
           </div>

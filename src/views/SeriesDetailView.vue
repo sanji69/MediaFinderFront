@@ -83,14 +83,22 @@ watch(locale, loadSeries)
           </p>
 
           <div class="genres">
-            <RouterLink
-              v-for="genre in series.genres"
-              :key="genre.id"
-              :to="`/search?genreId=${genre.id}`"
-              class="genre"
-            >
-              {{ genre.name }}
-            </RouterLink>
+          <RouterLink
+            v-for="genre in series.genres"
+            :key="genre.id"
+            :to="{
+              name: 'search-results',
+              query: {
+                type: 'genre',
+                genreId: genre.id,
+                sourceMediaType: 'tv',
+                label: genre.name
+              }
+            }"
+            class="genre"
+          >
+            {{ genre.name }}
+          </RouterLink>
           </div>
 
           <div v-if="series.creators.length" class="info-block">
@@ -102,6 +110,7 @@ watch(locale, loadSeries)
                 :key="creator.id"
                 :id="creator.id"
                 :name="creator.name"
+                role="director"
               />
             </div>
           </div>

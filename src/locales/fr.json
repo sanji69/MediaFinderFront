@@ -29,5 +29,14 @@
     "createdBy": "Créé par",
     "seasons": "saisons",
     "episodes": "épisodes"
+  },
+
+  "search": {
+  "title": "Résultats de recherche",
+  "resultsFor": "Résultats pour {name}",
+  "loading": "Chargement...",
+  "noResults": "Aucun résultat trouvé.",
+  "loadError": "Impossible de charger les résultats.",
+  "noPoster": "Pas d'affiche"
   }
 }

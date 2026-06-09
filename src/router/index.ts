@@ -18,6 +18,11 @@ const router = createRouter({
       name: 'series-detail',
       component: () => import('../views/SeriesDetailView.vue'),
     },
+    {
+      path: '/search',
+      name: 'search-results',
+      component: () => import('@/views/SearchResultsView.vue')
+    },
   ],
 })
 

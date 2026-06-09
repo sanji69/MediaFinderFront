@@ -1,13 +1,21 @@
-<script setup lang="ts">
-defineProps<{
+<script setup lang="ts">defineProps<{
   id: number
   name: string
+  role: string
 }>()
 </script>
 
 <template>
   <RouterLink
-    :to="`/search?personId=${id}`"
+    :to="{
+      name: 'search-results',
+      query: {
+        type: 'person',
+        personId: id,
+        role,
+        label: name
+      }
+    }"
     class="person-link"
   >
     {{ name }}

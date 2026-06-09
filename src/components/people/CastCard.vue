@@ -5,10 +5,22 @@ defineProps<{
   character: string
   profilePath: string | null
 }>()
+
 </script>
 
 <template>
-  <RouterLink :to="`/search?personId=${id}`" class="cast-card">
+  <RouterLink
+    :to="{
+      name: 'search-results',
+      query: {
+        type: 'person',
+        personId: id,
+        role: 'actor',
+        label: name
+      }
+    }"
+    class="cast-card"
+  >    
     <div class="cast-photo">
       <img
         v-if="profilePath"
