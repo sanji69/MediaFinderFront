@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import MediaCard from '../components/media/MediaCard.vue'
 import { getTrendingMovies, type TrendingMovie } from '../services/movieService'
 import { getTrendingSeries, type TrendingSeries } from '../services/seriesService'
@@ -50,7 +50,7 @@ function stopScroll() {
   }
 }
 
-onMounted(async () => {
+async function loadTrending() {
   try {
     movieIsLoading.value = true
     movies.value = await getTrendingMovies(apiLocale.value)
@@ -60,6 +60,7 @@ onMounted(async () => {
   } finally {
     movieIsLoading.value = false
   }
+
   try {
     isSeriesLoading.value = true
     series.value = await getTrendingSeries(apiLocale.value)
@@ -69,7 +70,16 @@ onMounted(async () => {
   } finally {
     isSeriesLoading.value = false
   }
-})
+}
+
+onMounted(loadTrending)
+
+watch(
+  () => apiLocale.value.language,
+  () => {
+    loadTrending()
+  }
+)
 </script>
 
 <template>
