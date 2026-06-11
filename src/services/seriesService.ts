@@ -1,4 +1,4 @@
-import type { ApiLocale } from './apiLocale'
+import type { ApiLocale } from '../types/apiLocale'
 
 export type TrendingSeries = {
   id: number

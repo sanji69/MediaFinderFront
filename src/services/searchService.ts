@@ -1,5 +1,5 @@
 import type { SearchResult } from '@/types/searchResult'
-import type { ApiLocale } from './apiLocale'
+import type { ApiLocale } from '../types/apiLocale'
 
 const API_BASE_URL = 'http://localhost:5174/api'
 

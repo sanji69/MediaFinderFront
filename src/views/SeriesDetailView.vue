@@ -6,6 +6,7 @@ import { getSeriesById, type SeriesDetail } from '../services/seriesService'
 import PersonLink from '../components/people/PersonLink.vue'
 import CastCard from '../components/people/CastCard.vue'
 import WatchProviderCard from '../components/media/WatchProviderCard.vue'
+import PhysicalOffersSection from '@/components/offers/PhysicalOffersSection.vue'
 
 const route = useRoute()
 const { t, locale } = useI18n()
@@ -129,6 +130,13 @@ watch(locale, loadSeries)
               />
             </div>
           </div>
+
+          <PhysicalOffersSection
+            v-if="series"
+            :title="series.name"
+            media-type="tv"
+            :locale="apiLocale"
+          />
 
           <div class="info-block">
             <h2>{{ t('series.overview') }}</h2>

@@ -6,6 +6,7 @@ import { getMovieById, type MovieDetail } from '../services/movieService'
 import PersonLink from '../components/people/PersonLink.vue'
 import CastCard from '../components/people/CastCard.vue'
 import WatchProviderCard from '../components/media/WatchProviderCard.vue'
+import PhysicalOffersSection from '@/components/offers/PhysicalOffersSection.vue'
 
 const route = useRoute()
 const { t, locale } = useI18n()
@@ -130,6 +131,13 @@ watch(locale, loadMovie)
               />
             </div>
           </div>
+
+          <PhysicalOffersSection
+            v-if="movie"
+            :title="movie.title"
+            media-type="movie"
+            :locale="apiLocale"
+          />
 
           <div class="info-block">
             <h2>{{ t('movie.overview') }}</h2>

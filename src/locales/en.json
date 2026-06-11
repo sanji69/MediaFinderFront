@@ -38,5 +38,13 @@
   "noResults": "No results found.",
   "loadError": "Unable to load results.",
   "noPoster": "No poster available"
+  },
+  
+  "offers": {
+  "title": "Physical offers",
+  "loading": "Loading offers...",
+  "noResults": "No offers found.",
+  "loadError": "Unable to load offers.",
+  "noImage": "No image"
   }
 }

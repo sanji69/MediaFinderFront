@@ -38,5 +38,14 @@
   "noResults": "Aucun résultat trouvé.",
   "loadError": "Impossible de charger les résultats.",
   "noPoster": "Pas d'affiche"
+  },
+
+  "offers": {
+  "title": "Offres physiques",
+  "loading": "Chargement des offres...",
+  "noResults": "Aucune offre trouvée.",
+  "loadError": "Impossible de charger les offres.",
+  "noImage": "Pas d'image"
   }
+
 }
