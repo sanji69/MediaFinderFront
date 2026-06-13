@@ -2,11 +2,18 @@
 import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore'
 
 const { t, locale } = useI18n()
 const router = useRouter()
 const isLanguageMenuOpen = ref(false)
 
+const authStore = useAuthStore()
+const isUserMenuOpen = ref(false)
+
+const userInitials = computed(() => {
+  return authStore.user?.username.slice(0, 2).toUpperCase() ?? '?'
+})
 const searchText = ref('')
 let searchTimeout: number | undefined
 
@@ -50,6 +57,24 @@ watch(searchText, (value) => {
   }, 300)
 })
 
+function logout() {
+  authStore.logout()
+
+  isUserMenuOpen.value = false
+
+  router.push({
+    name: 'login',
+  })
+}
+
+function resolveAvatarUrl(path: string | null) {
+  if (!path) return undefined
+
+  if (path.startsWith('http')) return path
+
+  return `${import.meta.env.VITE_API_BASE_URL.replace('/api', '')}${path}`
+}
+
 </script>
 
 <template>
@@ -59,7 +84,45 @@ watch(searchText, (value) => {
       <input type="text" v-model="searchText" :placeholder="t('header.searchPlaceholder')" class="search-input" />
     </div>
     <div class="header-actions">
-      <button class="login-button" disabled>{{ t('header.login') }}</button>
+      <RouterLink
+        v-if="!authStore.isAuthenticated"
+        :to="{ name: 'login' }"
+        class="login-button"
+      >
+        {{ t('header.login') }}
+      </RouterLink>
+
+      <div v-else class="user-menu-wrapper">
+        <button
+          class="user-avatar-button"
+          type="button"
+          @click="isUserMenuOpen = !isUserMenuOpen"
+        >
+          <img
+            v-if="authStore.user?.avatarPath"
+            :src="resolveAvatarUrl(authStore.user.avatarPath)"
+            :alt="authStore.user.username"
+          />
+          <span v-else>{{ userInitials }}</span>
+        </button>
+
+        <div v-if="isUserMenuOpen" class="user-menu">
+          <RouterLink :to="{ name: 'profile' }" class="user-menu-item">
+            {{ t('header.profile') }}
+          </RouterLink>
+
+          <button class="user-menu-item" disabled>
+            {{ t('header.favorites') }}
+          </button>
+
+          <button
+            class="user-menu-item"
+            @click="logout"
+          >
+            {{ t('header.logout') }}
+          </button>
+        </div>
+      </div>
 
       <div class="language-selector">
         <button
@@ -132,8 +195,16 @@ watch(searchText, (value) => {
   background: #ffffff;
   color: #111;
   font-weight: 600;
-  cursor: not-allowed;
-  opacity: 0.7;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 1;
+}
+
+.login-button:hover {
+  transform: scale(1.03);
 }
 
 .language-selector {
@@ -249,6 +320,61 @@ watch(searchText, (value) => {
   border-bottom: 1px solid #2a2a2a;
 }
 
+.user-menu-wrapper {
+  position: relative;
+}
+
+.user-avatar-button {
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  background: #132a57;
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.user-avatar-button img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.user-menu {
+  position: absolute;
+  top: 56px;
+  right: 0;
+  z-index: 100;
+  min-width: 150px;
+  padding: 0.4rem;
+  border-radius: 12px;
+  background: #1f2937;
+  border: 1px solid #334155;
+}
+
+.user-menu-item {
+  width: 100%;
+  display: block;
+  padding: 0.65rem 0.8rem;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: white;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.user-menu-item:hover:not(:disabled) {
+  background: #334155;
+}
+
+.user-menu-item:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 </style>
 
 <!-- removed duplicate script block -->

@@ -1,7 +1,10 @@
 {
   "header": {
     "searchPlaceholder": "Search movies or tv shows...",
-    "login": "Login"
+    "login": "Login",
+    "profile": "Profile",
+    "favorites": "Favorites",
+    "logout": "Logout"
   },
 
   "footer": {
@@ -46,5 +49,55 @@
   "noResults": "No offers found.",
   "loadError": "Unable to load offers.",
   "noImage": "No image"
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "loading": "Signing in...",
+      "error": "Invalid email or password.",
+      "noAccount": "No account?",
+      "createAccount": "Create an account"
+    },
+    "register": {
+      "title": "Create an account",
+      "username": "Username",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "submit": "Create account",
+      "loading": "Creating...",
+      "passwordMismatch": "Passwords do not match.",
+      "error": "Unable to create account.",
+      "successTitle": "Account created",
+      "successMessage": "Your account has been created. Please check your emails to confirm it.",
+      "goToLogin": "Go to login",
+      "alreadyAccount": "Already have an account?",
+      "login": "Sign in"
+    },
+    "confirmEmail": {
+      "title": "Account confirmation",
+      "loading": "Confirming your account...",
+      "successTitle": "Account confirmed",
+      "successMessage": "Your account has been confirmed. You can now sign in.",
+      "errorTitle": "Confirmation failed",
+      "errorMessage": "The confirmation link is invalid or expired.",
+      "goToLogin": "Go to login"      
+    }    
+  },
+  "profile": {
+    "title": "Profile",
+    "username": "Username",
+    "email": "Email",
+    "emailConfirmed": "Email confirmed",
+    "yes": "Yes",
+    "no": "No",
+    "logout": "Logout",
+    "notConnected": "You are not logged in.",
+    "goToLogin": "Go to login",
+    "avatarTooLarge": "The image is too large. Maximum size: 5 MB.",
+    "avatarUploadError": "Unable to update profile picture."
   }
 }

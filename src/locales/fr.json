@@ -1,7 +1,10 @@
 {
   "header": {
     "searchPlaceholder": "Rechercher un film ou une série...",
-    "login": "Connexion"
+    "login": "Connexion",
+    "profile": "Profil",
+    "favorites": "Favoris",
+    "logout": "Déconnexion"
   },
 
   "footer": {
@@ -46,6 +49,56 @@
   "noResults": "Aucune offre trouvée.",
   "loadError": "Impossible de charger les offres.",
   "noImage": "Pas d'image"
-  }
+  },
 
+  "auth": {
+    "login": {
+      "title": "Connexion",
+      "email": "Email",
+      "password": "Mot de passe",
+      "submit": "Se connecter",
+      "loading": "Connexion...",
+      "error": "Email ou mot de passe incorrect.",
+      "noAccount": "Pas de compte ?",
+      "createAccount": "Créer un compte"
+    },
+    "register": {
+      "title": "Créer un compte",
+      "username": "Nom d'utilisateur",
+      "email": "Email",
+      "password": "Mot de passe",
+      "confirmPassword": "Confirmer le mot de passe",
+      "submit": "Créer le compte",
+      "loading": "Création...",
+      "passwordMismatch": "Les mots de passe ne correspondent pas.",
+      "error": "Impossible de créer le compte.",
+      "successTitle": "Compte créé",
+      "successMessage": "Votre compte a bien été créé. Consultez vos emails pour valider votre compte.",
+      "goToLogin": "Aller à la connexion",
+      "alreadyAccount": "Déjà un compte ?",
+      "login": "Se connecter"
+    },
+    "confirmEmail": {
+      "title": "Validation du compte",
+      "loading": "Validation de votre compte...",
+      "successTitle": "Compte validé",
+      "successMessage": "Votre compte a bien été validé. Vous pouvez maintenant vous connecter.",
+      "errorTitle": "Validation impossible",
+      "errorMessage": "Le lien de validation est invalide ou expiré.",
+      "goToLogin": "Aller à la connexion"
+    }    
+  },
+  "profile": {
+    "title": "Profil",
+    "username": "Nom d'utilisateur",
+    "email": "Email",
+    "emailConfirmed": "Email confirmé",
+    "yes": "Oui",
+    "no": "Non",
+    "logout": "Déconnexion",
+    "notConnected": "Vous n'êtes pas connecté.",
+    "goToLogin": "Aller à la connexion",
+    "avatarTooLarge": "L'image est trop lourde. Taille maximale : 5 Mo.",
+    "avatarUploadError": "Impossible de mettre à jour la photo de profil."
+  }
 }
