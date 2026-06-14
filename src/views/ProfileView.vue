@@ -105,11 +105,19 @@ function resolveAvatarUrl(path: string | null) {
           <strong>{{ t('profile.email') }} :</strong>
           {{ authStore.user.email }}
         </p>
-      </div>
+      </div><div class="profile-actions">
+        <RouterLink :to="{ name: 'favorites' }" class="profile-action-card">
+          ⭐ {{ t('profile.favorites') }}
+        </RouterLink>
 
-      <button class="logout-button" @click="logout">
-        {{ t('profile.logout') }}
-      </button>
+        <button class="profile-action-card disabled" disabled>
+          💬 {{ t('profile.comments') }}
+        </button>
+
+        <button class="profile-action-card logout" type="button" @click="logout">
+          {{ t('profile.logout') }}
+        </button>
+      </div>
     </section>
 
     <section v-else class="profile-card">
@@ -241,4 +249,70 @@ function resolveAvatarUrl(path: string | null) {
   opacity: 1;
 }
 
+.profile-action-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 1rem;
+
+  border-radius: 1rem;
+
+  background: #132a57;
+  color: white;
+
+  text-decoration: none;
+  font-weight: 600;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.profile-action-card:hover {
+  background: #1e40af;
+  transform: translateY(-2px);
+}
+
+.profile-actions {
+  margin-top: 2rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.profile-action-card {
+  width: 100%;
+  padding: 1rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+
+  border: 1px solid #1a3f85;
+  border-radius: 1rem;
+
+  background: #132a57;
+  color: white;
+
+  text-decoration: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.profile-action-card:hover:not(:disabled) {
+  background: #1e3a8a;
+  border-color: #3b82f6;
+}
+
+.profile-action-card:disabled,
+.profile-action-card.disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.profile-action-card.disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
 </style>

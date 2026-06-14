@@ -22,7 +22,11 @@
     "overview": "Overview",
     "availableOn": "Available on",
     "mainCast": "Main Cast",
-    "directedBy": "Directed by"
+    "directedBy": "Directed by",
+    "communityRating": "Community rating",
+    "votes": "{count} vote | {count} votes",
+    "loginToRate": "Sign in to rate",
+    "ratingError": "Unable to load rating."
   },
 
   "series": {
@@ -31,7 +35,11 @@
     "mainCast": "Main Cast",
     "createdBy": "Created by",
     "seasons": "seasons",
-    "episodes": "episodes"
+    "episodes": "episodes",
+    "communityRating": "Community rating",
+    "votes": "{count} vote | {count} votes",
+    "loginToRate": "Sign in to rate",
+    "ratingError": "Unable to load rating."
   },
 
   "search": {
@@ -98,6 +106,16 @@
     "notConnected": "You are not logged in.",
     "goToLogin": "Go to login",
     "avatarTooLarge": "The image is too large. Maximum size: 5 MB.",
-    "avatarUploadError": "Unable to update profile picture."
+    "avatarUploadError": "Unable to update profile picture.",
+    "favorites": "My favorites",
+    "comments": "My comments"
+  },
+  "favorites": {
+    "added": "Added to favorites",
+    "removed": "Removed from favorites",
+    "title": "My favorites",
+    "loading": "Loading favorites...",
+    "empty": "You don't have any favorites yet.",
+    "loadError": "Unable to load favorites."
   }
 }

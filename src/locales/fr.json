@@ -22,7 +22,11 @@
     "overview": "Synopsis",
     "availableOn": "Disponible sur",
     "mainCast": "Casting principal",
-    "directedBy": "Réalisé par"
+    "directedBy": "Réalisé par",
+    "communityRating": "Note de la communauté",
+    "votes": "{count} vote | {count} votes",
+    "loginToRate": "Connectez-vous pour voter",
+    "ratingError": "Impossible de charger la note."
   },
 
   "series": {
@@ -31,7 +35,11 @@
     "mainCast": "Casting principal",
     "createdBy": "Créé par",
     "seasons": "saisons",
-    "episodes": "épisodes"
+    "episodes": "épisodes",
+    "communityRating": "Note de la communauté",
+    "votes": "{count} vote | {count} votes",
+    "loginToRate": "Connectez-vous pour voter",
+    "ratingError": "Impossible de charger la note."
   },
 
   "search": {
@@ -99,6 +107,16 @@
     "notConnected": "Vous n'êtes pas connecté.",
     "goToLogin": "Aller à la connexion",
     "avatarTooLarge": "L'image est trop lourde. Taille maximale : 5 Mo.",
-    "avatarUploadError": "Impossible de mettre à jour la photo de profil."
+    "avatarUploadError": "Impossible de mettre à jour la photo de profil.",
+    "favorites": "Mes favoris",
+    "comments": "Mes commentaires"
+  },
+  "favorites": {
+    "added": "Ajouté aux favoris",
+    "removed": "Retiré des favoris",
+    "title": "Mes favoris",
+    "loading": "Chargement des favoris...",
+    "empty": "Vous n'avez pas encore de favoris.",
+    "loadError": "Impossible de charger les favoris."
   }
 }

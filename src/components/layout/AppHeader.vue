@@ -111,9 +111,9 @@ function resolveAvatarUrl(path: string | null) {
             {{ t('header.profile') }}
           </RouterLink>
 
-          <button class="user-menu-item" disabled>
+          <RouterLink :to="{ name: 'favorites' }" class="user-menu-item">
             {{ t('header.favorites') }}
-          </button>
+          </RouterLink>
 
           <button
             class="user-menu-item"
