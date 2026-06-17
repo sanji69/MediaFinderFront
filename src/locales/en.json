@@ -108,7 +108,10 @@
     "avatarTooLarge": "The image is too large. Maximum size: 5 MB.",
     "avatarUploadError": "Unable to update profile picture.",
     "favorites": "My favorites",
-    "comments": "My comments"
+    "comments": "My comments",
+    "deleteAccount": "Delete my account",
+    "deleteAccountConfirmation": "Are you sure you want to delete your account? This action cannot be undone.",
+    "cancel": "Cancel"
   },
   "favorites": {
     "added": "Added to favorites",

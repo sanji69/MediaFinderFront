@@ -109,7 +109,10 @@
     "avatarTooLarge": "L'image est trop lourde. Taille maximale : 5 Mo.",
     "avatarUploadError": "Impossible de mettre à jour la photo de profil.",
     "favorites": "Mes favoris",
-    "comments": "Mes commentaires"
+    "comments": "Mes commentaires",
+    "deleteAccount": "Supprimer mon compte",
+    "deleteAccountConfirmation": "Êtes-vous sûr de vouloir supprimer ton compte ? Cette action est irréversible.",
+    "cancel": "Annuler"
   },
   "favorites": {
     "added": "Ajouté aux favoris",

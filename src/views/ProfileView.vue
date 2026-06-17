@@ -4,6 +4,7 @@ import { RouterLink, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/stores/authStore'
 import { uploadProfileAvatar } from '@/services/profileService'
+import { deleteCurrentUser } from '@/services/authService'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -63,6 +64,33 @@ function resolveAvatarUrl(path: string | null) {
 
   return `${import.meta.env.VITE_API_BASE_URL.replace('/api', '')}${path}`
 }
+const showDeleteModal = ref(false)
+
+function openDeleteModal() {
+  showDeleteModal.value = true
+}
+
+async function confirmDeleteAccount() {
+  const token = authStore.token
+
+  if (!token) {
+    showDeleteModal.value = false
+    router.push({ name: 'login' })
+    return
+  }
+
+  try {
+    await deleteCurrentUser(token)
+
+    showDeleteModal.value = false
+    authStore.logout()
+
+    await router.replace({ name: 'home' })
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 </script>
 
 <template>
@@ -113,7 +141,13 @@ function resolveAvatarUrl(path: string | null) {
         <button class="profile-action-card disabled" disabled>
           💬 {{ t('profile.comments') }}
         </button>
-
+        <button
+          class="profile-action-card delete-account"
+          type="button"
+          @click="openDeleteModal"
+        >
+          🗑️ {{ t('profile.deleteAccount') }}
+        </button>
         <button class="profile-action-card logout" type="button" @click="logout">
           {{ t('profile.logout') }}
         </button>
@@ -128,7 +162,36 @@ function resolveAvatarUrl(path: string | null) {
       </RouterLink>
     </section>
   </main>
+  <div
+    v-if="showDeleteModal"
+    class="modal-overlay"
+  >
+    <div class="modal">
+      <h2>{{ t('profile.deleteAccount') }}</h2>
+
+      <p>
+        {{ t('profile.deleteAccountConfirmation') }}
+      </p>
+
+      <div class="modal-actions">
+        <button
+          class="cancel-button"
+          @click="showDeleteModal = false"
+        >
+          {{ t('profile.cancel') }}
+        </button>
+
+        <button
+          class="delete-button"
+          @click="confirmDeleteAccount"
+        >
+          {{ t('profile.deleteAccount') }}
+        </button>
+      </div>
+    </div>
+  </div>
 </template>
+
 
 <style scoped>
 .profile-page {
@@ -314,5 +377,87 @@ function resolveAvatarUrl(path: string | null) {
 .profile-action-card.disabled {
   opacity: 0.55;
   cursor: not-allowed;
+}
+
+.profile-action-card.delete-account {
+  background: #132a57;
+  border: 1px solid #1a3f85;
+}
+
+.profile-action-card.delete-account:hover {
+  background: #1e40af;
+  transform: translateY(-2px);
+}
+
+/*modal*/
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.7);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 1000;
+}
+
+.modal {
+  width: 100%;
+  max-width: 500px;
+
+  padding: 2rem;
+
+  border-radius: 1rem;
+
+  background: #0a1b44;
+
+  border: 1px solid #1a3f85;
+
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.modal h2 {
+  margin-bottom: 1rem;
+}
+
+.modal p {
+  color: #cbd5e1;
+}
+
+.modal-actions {
+  margin-top: 2rem;
+
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.cancel-button {
+  padding: 0.75rem 1rem;
+
+  border: 1px solid #3b82f6;
+
+  border-radius: 0.75rem;
+
+  background: transparent;
+  color: white;
+}
+
+.delete-button {
+  padding: 0.75rem 1rem;
+
+  border: none;
+
+  border-radius: 0.75rem;
+
+  background: #991b1b;
+  color: white;
+}
+
+.delete-button:hover {
+  background: #dc2626;
 }
 </style>

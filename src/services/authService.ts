@@ -49,3 +49,16 @@ export async function confirmEmail(token: string): Promise<void> {
     throw new Error('Failed to confirm email')
   }
 }
+
+export async function deleteCurrentUser(token: string): Promise<void> {
+  const response = await fetch(`${API_BASE_URL}/api/auth/me`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to delete account')
+  }
+}
