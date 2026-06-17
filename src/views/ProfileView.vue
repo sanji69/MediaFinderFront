@@ -137,10 +137,12 @@ async function confirmDeleteAccount() {
         <RouterLink :to="{ name: 'favorites' }" class="profile-action-card">
           ⭐ {{ t('profile.favorites') }}
         </RouterLink>
-
-        <button class="profile-action-card disabled" disabled>
+        <RouterLink
+          :to="{ name: 'my-comments' }"
+          class="profile-action-card"
+        >
           💬 {{ t('profile.comments') }}
-        </button>
+        </RouterLink>
         <button
           class="profile-action-card delete-account"
           type="button"

@@ -13,6 +13,7 @@ import type { RatingSummary } from '@/types/rating'
 import { useAuthStore } from '@/stores/authStore'
 import { addFavorite, getFavoriteStatus, removeFavorite } from '@/services/favoriteService'
 import type { FavoriteStatus } from '@/types/favorite'
+import CommentSection from '@/components/comments/CommentSection.vue'
 
 const route = useRoute()
 const { t, locale } = useI18n()
@@ -296,6 +297,13 @@ async function toggleFavorite() {
           </div>
         </aside>
       </div>
+      <CommentSection
+        v-if="series"
+        :media-id="series.id"
+        media-type="tv"
+        :media-title="series.name"
+        :media-poster-path="series.posterPath"
+      />
     </section>
   </main>
 </template>

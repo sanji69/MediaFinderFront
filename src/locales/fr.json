@@ -121,5 +121,39 @@
     "loading": "Chargement des favoris...",
     "empty": "Vous n'avez pas encore de favoris.",
     "loadError": "Impossible de charger les favoris."
+  },
+  "comments": {
+    "report": "Signaler",
+    "reportTitle": "Signaler un commentaire",
+    "reportDescription": "Indiquez pourquoi ce commentaire doit être examiné par l'équipe de modération.",
+    "reportPlaceholder": "Expliquez le problème...",
+    "reportReasonTooShort": "La raison doit contenir au moins 5 caractères.",
+    "title": "Commentaires",
+    "placeholder": "Écrire un commentaire...",
+    "send": "Publier",
+    "sending": "Publication...",
+    "loginToComment": "Connectez-vous pour publier un commentaire.",
+    "loading": "Chargement des commentaires...",
+    "empty": "Aucun commentaire pour le moment.",
+    "loadError": "Impossible de charger les commentaires.",
+    "createError": "Impossible de publier le commentaire.",
+    "deleteError": "Impossible de supprimer le commentaire.",
+    "reportError": "Impossible de signaler le commentaire.",
+    "commentTooShort": "Le commentaire doit contenir au moins 2 caractères.",
+    "deleteConfirmation": "Voulez-vous vraiment supprimer ce commentaire ?",
+    "delete": "Supprimer",
+    "deleteTitle": "Supprimer le commentaire",
+    "myCommentsTitle": "Mes commentaires",
+    "myCommentsEmpty": "Vous n'avez pas encore publié de commentaire.",
+    "myCommentsLoadError": "Impossible de charger vos commentaires.",
+    "alreadyReported": "Vous avez déjà signalé ce commentaire.",
+    "ownCommentReport": "Vous ne pouvez pas signaler votre propre commentaire.",
+    "commentUnavailable": "Ce commentaire n'est plus disponible."
+  },
+  "common": {
+    "loading": "Chargement...",
+    "cancel": "Annuler",
+    "movie": "Film",
+    "series": "Série"
   }
 }

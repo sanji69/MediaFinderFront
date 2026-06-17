@@ -48,6 +48,12 @@ const router = createRouter({
       name: 'favorites',
       component: () => import('@/views/FavoritesView.vue'),
     },
+    {
+      path: '/profile/comments',
+      name: 'my-comments',
+      component: () => import('@/views/MyCommentsView.vue'),
+      meta: { requiresAuth: true },
+    }
   ],
 })
 

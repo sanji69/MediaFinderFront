@@ -120,5 +120,39 @@
     "loading": "Loading favorites...",
     "empty": "You don't have any favorites yet.",
     "loadError": "Unable to load favorites."
+  },
+    "comments": {
+    "report": "Report",
+    "reportTitle": "Report a comment",
+    "reportDescription": "Explain why this comment should be reviewed by the moderation team.",
+    "reportPlaceholder": "Describe the issue...",
+    "reportReasonTooShort": "The reason must contain at least 5 characters.",
+    "title": "Comments",
+    "placeholder": "Write a comment...",
+    "send": "Post",
+    "sending": "Posting...",
+    "loginToComment": "Log in to post a comment.",
+    "loading": "Loading comments...",
+    "empty": "No comments yet.",
+    "loadError": "Unable to load comments.",
+    "createError": "Unable to post comment.",
+    "deleteError": "Unable to delete comment.",
+    "reportError": "Unable to report comment.",
+    "commentTooShort": "The comment must contain at least 2 characters.",
+    "deleteConfirmation": "Do you really want to delete this comment?",
+    "delete": "Delete",
+    "deleteTitle": "Delete comment",
+    "myCommentsTitle": "My comments",
+    "myCommentsEmpty": "You haven't posted any comments yet.",
+    "myCommentsLoadError": "Unable to load your comments.",
+    "alreadyReported": "You have already reported this comment.",
+    "ownCommentReport": "You cannot report your own comment.",
+    "commentUnavailable": "This comment is no longer available."
+  },
+  "common": {
+    "loading": "Loading...",
+    "cancel": "Cancel",
+    "movie": "Movie",
+    "series": "Series"
   }
 }
