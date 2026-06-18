@@ -155,5 +155,59 @@
     "cancel": "Annuler",
     "movie": "Film",
     "series": "Série"
+  },
+  "admin": {
+    "nav": "Administration",
+    "title": "Administration",
+    "subtitle": "Gestion des signalements et des utilisateurs.",
+    "forbiddenTitle": "Accès refusé",
+    "forbiddenMessage": "Vous n'avez pas les droits nécessaires pour accéder à cette page.",
+    "warnings": "Avert.",
+    "reportsLoadError": "Impossible de charger les signalements.",
+    "acceptReportError": "Impossible de valider le signalement.",
+    "rejectReportError": "Impossible de rejeter le signalement.",
+    "usersLoadError": "Impossible de charger les utilisateurs.",
+    "banUserError": "Impossible de bannir l'utilisateur.",
+    "unbanUserError": "Impossible de débannir l'utilisateur.",
+    "resetWarningsError": "Impossible de réinitialiser les avertissements.",
+    "updateRoleError": "Impossible de modifier le rôle.",
+    "reports": {
+      "title": "Signalements en attente",
+      "subtitle": "Traitez les commentaires signalés par les utilisateurs.",
+      "empty": "Aucun signalement en attente.",
+      "comment": "Commentaire signalé",
+      "reason": "Raison du signalement",
+      "author": "Auteur",
+      "reportedBy": "Signalé par",
+      "accept": "Valider",
+      "reject": "Rejeter"
+    },
+    "tabs": {
+      "reports": "Signalements",
+      "users": "Utilisateurs"
+    },
+    "roles": {
+      "user": "Utilisateur",
+      "admin": "Admin",
+      "moderator": "Modérateur"
+    },
+    "status": {
+      "active": "Actif",
+      "deleted": "Supprimé",
+      "banned": "Banni"
+    },
+    "users": {
+      "title": "Utilisateurs",
+      "subtitle": "Gérez les rôles, les avertissements et les bannissements.",
+      "empty": "Aucun utilisateur trouvé.",
+      "username": "Utilisateur",
+      "email": "Email",
+      "role": "Rôle",
+      "actions": "Actions",
+      "you": "Vous",
+      "ban": "Bannir",
+      "unban": "Débannir",
+      "resetWarnings": "Réinitialiser les avertissements"
+    }
   }
 }

@@ -4,6 +4,10 @@ export interface UserProfile {
   email: string
   avatarPath: string | null
   isEmailConfirmed: boolean
+
+  role: number
+  accountStatus: number
+  warningCount: number
 }
 
 export interface AuthResponse {

@@ -154,5 +154,59 @@
     "cancel": "Cancel",
     "movie": "Movie",
     "series": "Series"
+  },
+  "admin": {
+    "nav": "Administration",
+    "title": "Administration",
+    "subtitle": "Manage reports and users.",
+    "forbiddenTitle": "Access denied",
+    "forbiddenMessage": "You do not have permission to access this page.",
+    "warnings": "Warns",
+    "reportsLoadError": "Unable to load reports.",
+    "acceptReportError": "Unable to accept report.",
+    "rejectReportError": "Unable to reject report.",
+    "usersLoadError": "Impossible de charger les utilisateurs.",
+    "banUserError": "Impossible de bannir l'utilisateur.",
+    "unbanUserError": "Impossible de débannir l'utilisateur.",
+    "resetWarningsError": "Impossible de réinitialiser les avertissements.",
+    "updateRoleError": "Impossible de modifier le rôle.",
+    "reports": {
+      "title": "Pending reports",
+      "subtitle": "Review comments reported by users.",
+      "empty": "No pending reports.",
+      "comment": "Reported comment",
+      "reason": "Report reason",
+      "author": "Author",
+      "reportedBy": "Reported by",
+      "accept": "Accept",
+      "reject": "Reject"
+    },
+    "tabs": {
+      "reports": "Reports",
+      "users": "Users"
+    },
+    "roles": {
+      "user": "Utilisateur",
+      "admin": "Admin",
+      "moderator": "Moderator"
+    },
+    "status": {
+      "active": "Actif",
+      "deleted": "Supprimé",
+      "banned": "Banni"
+    },
+    "users": {
+      "title": "Utilisateurs",
+      "subtitle": "Gérez les rôles, les avertissements et les bannissements.",
+      "empty": "Aucun utilisateur trouvé.",
+      "you": "Vous",
+      "ban": "Bannir",
+      "unban": "Débannir",
+      "resetWarnings": "Réinitialiser les avertissements",
+      "username": "User",
+      "email": "Email",
+      "role": "Role",
+      "actions": "Actions"
+    }
   }
 }

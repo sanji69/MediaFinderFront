@@ -114,7 +114,13 @@ function resolveAvatarUrl(path: string | null) {
           <RouterLink :to="{ name: 'favorites' }" class="user-menu-item">
             {{ t('header.favorites') }}
           </RouterLink>
-
+          <RouterLink
+            v-if="authStore.user?.role === 2 || authStore.user?.role === 3"
+            :to="{ name: 'admin' }"
+            class="user-menu-link"
+          >
+           {{ t('admin.nav') }}
+          </RouterLink>
           <button
             class="user-menu-item"
             @click="logout"
@@ -374,6 +380,20 @@ function resolveAvatarUrl(path: string | null) {
 .user-menu-item:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.user-menu-link {
+  display: block;
+  padding: 0.5rem 0.75rem;
+
+  color: white;
+  text-decoration: none;
+
+  border-radius: 0.5rem;
+}
+
+.user-menu-link:hover {
+  background: #132a57;
 }
 </style>
 

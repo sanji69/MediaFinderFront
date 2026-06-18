@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -53,8 +54,33 @@ const router = createRouter({
       name: 'my-comments',
       component: () => import('@/views/MyCommentsView.vue'),
       meta: { requiresAuth: true },
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: () => import('@/views/AdminView.vue'),
+      meta: {
+        requiresAuth: true,
+        requiresAdminPanel: true,
+      },
     }
   ],
+})
+
+router.beforeEach((to) => {
+  const authStore = useAuthStore()
+
+  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+    return { name: 'login' }
+  }
+
+  if (to.meta.requiresAdminPanel) {
+    const role = authStore.user?.role
+
+    if (role !== 2 && role !== 3) {
+      return { name: 'Home' }
+    }
+  }
 })
 
 export default router
