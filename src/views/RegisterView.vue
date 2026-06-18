@@ -40,8 +40,10 @@ async function submitRegister() {
 
     isCreated.value = true
   } catch (err) {
-    console.error(err)
-    error.value = t('auth.register.error')
+    error.value =
+      err instanceof Error
+        ? t(err.message)
+        : t('auth.register.error')
   } finally {
     isLoading.value = false
   }

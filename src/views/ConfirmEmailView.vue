@@ -9,6 +9,7 @@ const route = useRoute()
 
 const isLoading = ref(true)
 const isSuccess = ref(false)
+const error = ref<string | null>(null)
 
 onMounted(async () => {
   const token = route.query.token?.toString()
@@ -23,8 +24,10 @@ onMounted(async () => {
     await confirmEmail(token)
     isSuccess.value = true
   } catch (err) {
-    console.error(err)
-    isSuccess.value = false
+    error.value =
+      err instanceof Error
+        ? t(err.message)
+        : t('auth.confirmEmail.error')
   } finally {
     isLoading.value = false
   }

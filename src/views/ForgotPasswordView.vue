@@ -1,34 +1,39 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
-import { useAuthStore } from '@/stores/authStore'
 import { useI18n } from 'vue-i18n'
+import { forgotPassword } from '@/services/authService'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
+
 const router = useRouter()
-const authStore = useAuthStore()
-
 const email = ref('')
-const password = ref('')
 const isLoading = ref(false)
+const success = ref(false)
 const error = ref<string | null>(null)
 
-async function submitLogin() {
+async function submitForgotPassword() {
   try {
     isLoading.value = true
     error.value = null
+    success.value = false
 
-    await authStore.login({
-      email: email.value,
-      password: password.value,
+    await forgotPassword(email.value, {
+    language: locale.value,
+    countryCode: locale.value.startsWith('fr') ? 'FR' : 'US',
     })
 
-    router.push({ name: 'profile' })
+    success.value = true
+    email.value = ''
+
+    setTimeout(() => {
+    router.push({ name: 'login' })
+    }, 5000)
   } catch (err) {
     error.value =
       err instanceof Error
         ? t(err.message)
-        : t('auth.login.invalidCredentials')
+        : t('auth.forgotPassword.error')
   } finally {
     isLoading.value = false
   }
@@ -38,40 +43,42 @@ async function submitLogin() {
 <template>
   <main class="auth-page">
     <section class="auth-card">
-      <h1>Connexion</h1>
+      <h1>{{ t('auth.forgotPassword.title') }}</h1>
 
-      <form @submit.prevent="submitLogin" class="auth-form">
+      <p class="auth-description">
+        {{ t('auth.forgotPassword.description') }}
+      </p>
+
+      <form class="auth-form" @submit.prevent="submitForgotPassword">
         <label>
-          {{ t('auth.login.email') }}
-          <input v-model="email" type="email" required />
+          {{ t('auth.forgotPassword.email') }}
+          <input v-model="email" type="email" required :disabled="success" />
         </label>
 
-        <label>
-          {{ t('auth.login.password') }}
-          <input v-model="password" type="password" required />
-        </label>
+        <p v-if="success" class="success">
+          {{ t('auth.forgotPassword.success') }}
+        </p>
 
-        <div class="forgot-password-row">
-          <RouterLink :to="{ name: 'forgot-password' }">
-            {{ t('auth.login.forgotPassword') }}
-          </RouterLink>
-        </div>
+        <p v-if="success" class="redirect-message">
+        {{ t('auth.forgotPassword.redirecting') }}
+        </p>
+        
+        <p v-if="error" class="error">
+          {{ error }}
+        </p>
 
-        <p v-if="error" class="error">{{ error }}</p>
-
-        <button type="submit" :disabled="isLoading">        
+        <button type="submit" :disabled="isLoading || success">
           {{
             isLoading
-              ? t('auth.login.loading')
-              : t('auth.login.submit')
+              ? t('auth.forgotPassword.loading')
+              : t('auth.forgotPassword.submit')
           }}
         </button>
       </form>
 
       <p class="auth-link">
-        {{ t('auth.login.noAccount') }}
-        <RouterLink :to="{ name: 'register' }">
-          {{ t('auth.login.createAccount') }}
+        <RouterLink :to="{ name: 'login' }">
+          {{ t('auth.forgotPassword.backToLogin') }}
         </RouterLink>
       </p>
     </section>
@@ -97,6 +104,13 @@ async function submitLogin() {
 
 .auth-card h1 {
   text-align: center;
+  margin-bottom: 1rem;
+}
+
+.auth-description {
+  color: #94a3b8;
+  text-align: center;
+  line-height: 1.5;
   margin-bottom: 1.5rem;
 }
 
@@ -141,6 +155,11 @@ async function submitLogin() {
   font-size: 0.9rem;
 }
 
+.success {
+  color: #86efac;
+  font-size: 0.9rem;
+}
+
 .auth-link {
   margin-top: 1.5rem;
   text-align: center;
@@ -149,21 +168,10 @@ async function submitLogin() {
 .auth-link a {
   color: #8ab4ff;
   font-weight: 600;
-}
-
-.forgot-password-row {
-  margin-top: -0.4rem;
-  text-align: right;
-}
-
-.forgot-password-row a {
-  color: #8ab4ff;
-  font-size: 0.9rem;
-  font-weight: 600;
   text-decoration: none;
 }
 
-.forgot-password-row a:hover {
+.auth-link a:hover {
   text-decoration: underline;
 }
 </style>

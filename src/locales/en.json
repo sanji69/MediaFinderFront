@@ -65,9 +65,14 @@
       "password": "Password",
       "submit": "Sign in",
       "loading": "Signing in...",
-      "error": "Invalid email or password.",
       "noAccount": "No account?",
-      "createAccount": "Create an account"
+      "createAccount": "Create an account",
+      "forgotPassword": "Forgot password?",
+      "invalidCredentials": "Invalid email or password.",
+      "accountBanned": "This account has been banned.",
+      "accountDeleted": "This account has been deleted.",
+      "emailNotConfirmed": "Please confirm your email before logging in.",
+      "expiredToken": "The reset link has expired."
     },
     "register": {
       "title": "Create an account",
@@ -78,12 +83,14 @@
       "submit": "Create account",
       "loading": "Creating...",
       "passwordMismatch": "Passwords do not match.",
-      "error": "Unable to create account.",
       "successTitle": "Account created",
       "successMessage": "Your account has been created. Please check your emails to confirm it.",
       "goToLogin": "Go to login",
       "alreadyAccount": "Already have an account?",
-      "login": "Sign in"
+      "login": "Sign in",
+      "error": "Unable to create account.",
+      "emailAlreadyExists": "This email is already in use.",
+      "usernameAlreadyExists": "This username is already in use."
     },
     "confirmEmail": {
       "title": "Account confirmation",
@@ -92,8 +99,35 @@
       "successMessage": "Your account has been confirmed. You can now sign in.",
       "errorTitle": "Confirmation failed",
       "errorMessage": "The confirmation link is invalid or expired.",
-      "goToLogin": "Go to login"      
-    }    
+      "goToLogin": "Go to login" ,
+      "error": "Unable to confirm email.",
+      "invalidToken": "The confirmation link is invalid.",
+      "expiredToken": "The confirmation link has expired."     
+    },
+    "forgotPassword": {
+      "title": "Forgot password",
+      "description": "Enter your email to receive a password reset link.",
+      "email": "Email",
+      "submit": "Send reset link",
+      "loading": "Sending...",
+      "success": "If this account exists, a reset email has been sent.",
+      "error": "Unable to send the reset email.",
+      "backToLogin": "Back to login",
+      "redirecting": "Redirecting to login in a few seconds..."
+    },
+    "resetPassword": {
+      "title": "Reset password",
+      "newPassword": "New password",
+      "confirmPassword": "Confirm password",
+      "submit": "Reset password",
+      "loading": "Updating...",
+      "success": "Password successfully updated.",
+      "error": "Unable to reset password.",
+      "invalidToken": "The reset link is invalid.",
+      "passwordMismatch": "Passwords do not match.",
+      "backToLogin": "Back to login",
+      "redirecting": "Redirecting to login in a few seconds..."
+    }
   },
   "profile": {
     "title": "Profile",

@@ -66,9 +66,13 @@
       "password": "Mot de passe",
       "submit": "Se connecter",
       "loading": "Connexion...",
-      "error": "Email ou mot de passe incorrect.",
       "noAccount": "Pas de compte ?",
-      "createAccount": "Créer un compte"
+      "createAccount": "Créer un compte",
+      "forgotPassword": "Mot de passe oublié ?",
+      "invalidCredentials": "Email ou mot de passe incorrect.",
+      "accountBanned": "Ce compte a été banni.",
+      "accountDeleted": "Ce compte a été supprimé.",
+      "emailNotConfirmed": "Veuillez confirmer votre email avant de vous connecter."
     },
     "register": {
       "title": "Créer un compte",
@@ -79,12 +83,14 @@
       "submit": "Créer le compte",
       "loading": "Création...",
       "passwordMismatch": "Les mots de passe ne correspondent pas.",
-      "error": "Impossible de créer le compte.",
       "successTitle": "Compte créé",
       "successMessage": "Votre compte a bien été créé. Consultez vos emails pour valider votre compte.",
       "goToLogin": "Aller à la connexion",
       "alreadyAccount": "Déjà un compte ?",
-      "login": "Se connecter"
+      "login": "Se connecter",
+      "error": "Impossible de créer le compte.",
+      "emailAlreadyExists": "Cet email est déjà utilisé.",
+      "usernameAlreadyExists": "Ce nom d'utilisateur est déjà utilisé."
     },
     "confirmEmail": {
       "title": "Validation du compte",
@@ -93,8 +99,36 @@
       "successMessage": "Votre compte a bien été validé. Vous pouvez maintenant vous connecter.",
       "errorTitle": "Validation impossible",
       "errorMessage": "Le lien de validation est invalide ou expiré.",
-      "goToLogin": "Aller à la connexion"
-    }    
+      "goToLogin": "Aller à la connexion",
+      "error": "Impossible de confirmer l'email.",
+      "invalidToken": "Le lien de confirmation est invalide.",
+      "expiredToken": "Le lien de confirmation a expiré."
+    },
+    "forgotPassword": {
+      "title": "Mot de passe oublié",
+      "description": "Saisissez votre email pour recevoir un lien de réinitialisation.",
+      "email": "Email",
+      "submit": "Envoyer le lien",
+      "loading": "Envoi...",
+      "success": "Si ce compte existe, un email de réinitialisation a été envoyé.",
+      "error": "Impossible d'envoyer l'email de réinitialisation.",
+      "backToLogin": "Retour à la connexion",
+      "redirecting": "Redirection vers la connexion dans quelques secondes..."
+    },
+    "resetPassword": {
+      "title": "Réinitialisation du mot de passe",
+      "newPassword": "Nouveau mot de passe",
+      "confirmPassword": "Confirmer le mot de passe",
+      "submit": "Modifier le mot de passe",
+      "loading": "Modification...",
+      "success": "Mot de passe modifié avec succès.",
+      "error": "Impossible de modifier le mot de passe.",
+      "invalidToken": "Le lien de réinitialisation est invalide.",
+      "passwordMismatch": "Les mots de passe ne correspondent pas.",
+      "backToLogin": "Retour à la connexion",
+      "expiredToken": "Le lien de réinitialisation a expiré.",
+      "redirecting": "Mot de passe modifié. Redirection vers la connexion dans quelques secondes..."
+    }
   },
   "profile": {
     "title": "Profil",
